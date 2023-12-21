@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::MovePlayer(Map* map) //Horrid CPU usage due to EmptyTile Calls
+void Player::MovePlayer(Map* map) 
 {
 	if (GetAsyncKeyState(KEY_W) && EmptyTile(map, player_x, player_y + UP)) //UP
 	{
@@ -47,15 +47,15 @@ void Player::UpdatePosition(Map* map, int p_x, int p_y, int cur_x, int cur_y) //
 
 bool Player::EmptyTile(Map* map, int p_x, int p_y)
 {
-	if (map->GetMapAreaXY(p_x, p_y) == map->GetEmptyTile())
+	if (map->GetMapAreaXY(p_x, p_y) == map->GetEmptyTile()) 
 	{
+		has_moved = true;//Functional but logical error. Function checks if player can move. Not if they have moved.
 		return true; 
-		has_moved = true;
 	}
 	else
 
 	{
-		return false;
 		has_moved = false;
+		return false;
 	}
 }
