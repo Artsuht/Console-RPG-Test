@@ -6,7 +6,7 @@ void Game::GameLoop()
 	Map* map = new Map;
 
 	BaseEntities* goblins[5]{ nullptr };
-	TerrainObject* rocks[29]{ nullptr }, * trees[29]{ nullptr }, * bushes[29]{ nullptr }; //
+	TerrainObject* rocks[29]{ nullptr }, * trees[29]{ nullptr }, * bushes[29]{ nullptr }; //Vector could've been used.
 	map->InitMap();
 	
 	//Mobs
@@ -38,8 +38,8 @@ void Game::GameLoop()
 	trees[0]->CleanUpTObjs(trees, 29);
 	bushes[0]->CleanUpTObjs(bushes, 29);
 	
-	player->CleanUpPlayer(player);
-	map->CleanUpMap(map);
+	delete player;
+	delete map;
 
 }
 
