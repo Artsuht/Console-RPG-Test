@@ -43,7 +43,7 @@ void BaseEntities::MoveEntity(BaseEntities* entity[], Map* map, Player* player)
 
 void BaseEntities::TriggerChase(BaseEntities* entity, Map* map, Player* player)
 {
-		if (entity->GetEntityX() == player->GetPlayerX() + ABOVE_OR_LEFT || entity->GetEntityY() == player->GetPlayerX() + BELOW_OR_RIGHT)
+		if (entity->GetEntityX() == player->GetPlayerX() + ABOVE_OR_LEFT || entity->GetEntityY() == player->GetPlayerY() + BELOW_OR_RIGHT)
 		{
 			entity->SetChase(true);
 		}
@@ -53,9 +53,9 @@ void BaseEntities::ChasePlayer(BaseEntities* entity, Map* map, Player* player) /
 {
 	map->UpdateMap(entity->GetEntityX(), entity->GetEntityY(), map->GetEmptyTile());
 
-	if (map->GetMapAreaXY(player->GetPlayerX() + RIGHT_OF_PLAYER, entity->GetEntityY() + 1) == map->GetEmptyTile())
+	if (map->GetMapAreaXY(player->GetPlayerX() + 2, entity->GetEntityY() + 1) == map->GetEmptyTile())
 	{
-		entity->SetEntityX(player->GetPlayerX() + RIGHT_OF_PLAYER);
+		entity->SetEntityX(player->GetPlayerX() + 2);
 		entity->SetEntityY(player->GetPlayerY() + 1);
 	}
 	else
