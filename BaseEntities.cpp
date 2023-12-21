@@ -45,19 +45,7 @@ void BaseEntities::TriggerChase(BaseEntities* entity, Map* map, Player* player)
 {
 	for (int i = 0; i < MAXIMUM_ENTITIES; i++)
 	{
-		if (entity->GetEntityX() == player->GetPlayerX() + RIGHT_OF_PLAYER)
-		{
-			entity->SetChase(true);
-		}
-		else if (entity->GetEntityX() == player->GetPlayerX() + LEFT_OF_PLAYER)
-		{
-			entity->SetChase(true);
-		}
-		else if (entity->GetEntityY() == player->GetPlayerX() && entity->GetEntityY() == player->GetPlayerY() + BENEATH_PLAYER) //Directly beneath the player
-		{
-			entity->SetChase(true);
-		}
-		else if (entity->GetEntityY() == player->GetPlayerX() && entity->GetEntityY() == player->GetPlayerY() + BENEATH_PLAYER) //Directly above the player
+		if (entity->GetEntityX() == player->GetPlayerX() + ABOVE_OR_LEFT || entity->GetEntityY() == player->GetPlayerX() + BELOW_OR_RIGHT)
 		{
 			entity->SetChase(true);
 		}
