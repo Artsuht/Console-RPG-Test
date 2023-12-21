@@ -1,0 +1,53 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <vector>
+#include "Map.h"
+
+class Player
+{
+public:
+	void MovePlayer(Map* map);
+	void SpawnPlayer(Map* map);
+	void UpdatePosition(Map* map, int p_x, int p_y, int cur_x, int cur_y);
+	bool EmptyTile(Map* map, int p_x, int p_y);
+	//Getters
+	bool PlayerMoved() { return has_moved; }
+	int GetPlayerX() { return player_x; }
+	int GetPlayerY() { return player_y; }
+	std::string GetPlayerBody() { return player_body; }
+	//Setters 
+	int SetPlayerX(int p_x) { player_x = p_x; }
+	int SetPlayerY(int p_y) { player_y = p_y; }
+	//CleanUp
+	void CleanUpPlayer(Player* player) { delete player; }
+private:
+
+	enum CONTROLS
+	{
+		KEY_W = 0x57,
+		KEY_A = 0x41,
+		KEY_S = 0x53,
+		KEY_D = 0x44,
+	};
+
+	enum DIRECTIONS //To improve readability of collision handling
+	{
+		LEFT = -1, UP = -1,
+		RIGHT = 1, DOWN = 1
+	};
+
+	int selection_state = MOVEMENT;
+	enum SELECTION_STATE
+	{
+		MENU_SELECT,
+		MOVEMENT
+	};
+
+	bool has_moved = false;
+	int player_x = 0, player_y = 0;
+	std::vector<std::string>player_inventory;
+	const std::string player_body = "@";
+};
+
+#endif //PLAYER_H
