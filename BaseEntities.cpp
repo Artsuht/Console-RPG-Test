@@ -43,10 +43,7 @@ void BaseEntities::MoveEntity(BaseEntities* entity[], Map* map, Player* player)
 
 void BaseEntities::TriggerChase(BaseEntities* entity, Map* map, Player* player)
 {
-		if (entity->GetEntityX() == player->GetPlayerX() + ABOVE_OR_LEFT || entity->GetEntityY() == player->GetPlayerY() + BELOW_OR_RIGHT)
-		{
-			entity->SetChase(true);
-		}
+		
 }
 
 void BaseEntities::ChasePlayer(BaseEntities* entity, Map* map, Player* player) //Working on it, entity overwrites tiles. Test implementation
