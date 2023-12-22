@@ -46,21 +46,23 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 
 void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 {
-	//Is the entity within two tiles of the player. Diagonally, Vertically, Horizontally
+	//Is the entity within two tiles of the player. Vertically, Horizontally
 	if (entity.entity_x == player.GetPlayerX() - 2 || entity.entity_y == player.GetPlayerY() - 2 || entity.entity_x == player.GetPlayerX() + 2, entity.entity_y == player.GetPlayerY() + 2)
 		entity.is_chasing_player = true;
 	else
 		entity.is_chasing_player = false;
 }
-////////////////DO
-void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player)
+////////////////TO DO
+void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Pretty much you cannot escape 
 {
 	int old_x = entity.entity_x;
 	int old_y = entity.entity_y;
 
 	map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+
 	entity.entity_x = player.GetPlayerX() + 1;
 	entity.entity_y = player.GetPlayerY() - 1;
+
 	if (EmptyTile(entity, entity.entity_x, entity.entity_y, map) == true && entity.entity_x > 1 && entity.entity_y > 1 && entity.entity_x < 29 && entity.entity_y < 29)
 		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
 	else
