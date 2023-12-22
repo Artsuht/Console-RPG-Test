@@ -46,7 +46,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 
 void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 {
-	//Is the entity within two tiles of the player. Vertically, Horizontally
+	//Is the entity two tiles away from the player. Vertically, Horizontally 
 	if (entity.entity_x == player.GetPlayerX() - 2 || entity.entity_y == player.GetPlayerY() - 2 || entity.entity_x == player.GetPlayerX() + 2, entity.entity_y == player.GetPlayerY() + 2)
 		entity.is_chasing_player = true;
 	else
