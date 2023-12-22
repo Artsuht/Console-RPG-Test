@@ -53,7 +53,7 @@ void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 		entity.is_chasing_player = false;
 }
 ////////////////TO DO
-void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Pretty much you cannot escape 
+void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Pretty much you cannot escape gg //How will this handle multiple entities
 {
 	int old_x = entity.entity_x;
 	int old_y = entity.entity_y;
