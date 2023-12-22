@@ -69,7 +69,7 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	{
 		entity.entity_x = old_x;
 		entity.entity_y = old_y;
-		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
 		entity.is_chasing_player = false;
 	}
 }
