@@ -7,10 +7,12 @@
 class Player
 {
 public:
-	void MovePlayer(Map* map);
-	void SpawnPlayer(Map* map);
-	void UpdatePosition(Map* map, int p_x, int p_y, int cur_x, int cur_y);
-	bool EmptyTile(Map* map, int p_x, int p_y);
+	Player(Map& map) { SpawnPlayer(map); }
+	void MovePlayer(Map& map);
+	void SpawnPlayer(Map& map);
+	void DisplayStats();
+	void UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y);
+	bool EmptyTile(Map& map, int p_x, int p_y);
 	//Getters
 	bool PlayerMoved() { return has_moved; }
 	int GetPlayerX() { return player_x; }
@@ -19,8 +21,6 @@ public:
 	//Setters 
 	int SetPlayerX(int p_x) { player_x = p_x; }
 	int SetPlayerY(int p_y) { player_y = p_y; }
-	//CleanUp
-	void CleanUpPlayer(Player* player) { delete player; }
 private:
 
 	enum CONTROLS

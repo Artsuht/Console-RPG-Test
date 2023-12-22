@@ -9,8 +9,9 @@ void Map::InitMap() //Initialize Map
 			map[columns][rows] = empty_tile;
 			map[columns][TOP_BORDER] = border_tile; 
 			map[LEFT_BORDER][rows] = border_tile;
-			map[columns][RIGHT_BORDER] = border_tile;
-			map[BOTTOM_BORDER][rows] = border_tile;
+			map[columns][BOTTOM_BORDER] = border_tile;
+			map[RIGHT_BORDER][rows] = border_tile;
+			
 		}
 	}
 }

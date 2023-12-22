@@ -9,6 +9,7 @@
 class Map
 {
 public:
+	Map() { InitMap(); }
 	void InitMap();
 	void UpdateMap(int entity_x, int entity_y, std::string entity_char);
 	void DrawMap();
@@ -19,8 +20,6 @@ public:
 	int GetMapHeight() { return map_height; }
 	std::string GetMapAreaXY(int m_x, int m_y) { return map[m_x][m_y]; }
 	std::string GetEmptyTile() { return empty_tile; }
-	//CleanUp
-	void CleanUpMap(Map* map) { delete map; }
 private:
 	//Honestly, just makes it easier to comprehend map initialisation code.
 	enum Borders

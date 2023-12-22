@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::MovePlayer(Map* map) 
+void Player::MovePlayer(Map& map) 
 {
 	if (GetAsyncKeyState(KEY_W) && EmptyTile(map, player_x, player_y + UP)) //UP
 	{
@@ -26,34 +26,42 @@ void Player::MovePlayer(Map* map)
 	}
 }
 
-void Player::SpawnPlayer(Map* map)
+void Player::SpawnPlayer(Map& map)
 {
-	while (map->GetMapAreaXY(player_x, player_y) != map->GetEmptyTile())
+	while (!EmptyTile(map, player_x, player_y))
 	{
+		//Check row by row for an empty space
 		++player_x;
-		++player_y;
+		if (player_x > map.GetMapMaximum())
+		{
+			player_x = map.GetMapMinimum(); //Reset the x coord once end of a row is reached and move down
+			++player_y;
+		}
 	}
-	map->UpdateMap(player_x, player_y, player_body);
+	map.UpdateMap(player_x, player_y, player_body);
 }
 
-void Player::UpdatePosition(Map* map, int p_x, int p_y, int cur_x, int cur_y) //Remove player from previous map tile in previous x y, update corresponding X Y tile with player.
+void Player::DisplayStats()
 {
-	map->UpdateMap(p_x, p_y, map->GetEmptyTile());
-	map->UpdateMap(player_x, player_y, player_body);
+}
+
+void Player::UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y) //Remove player from previous map tile in previous x y, update corresponding X Y tile with player.
+{
+	map.UpdateMap(p_x, p_y, map.GetEmptyTile());
+	map.UpdateMap(player_x, player_y, player_body);
 	system("cls");
-	map->DrawMap();
+	map.DrawMap();
 }
 
 
-bool Player::EmptyTile(Map* map, int p_x, int p_y)
+bool Player::EmptyTile(Map& map, int p_x, int p_y)
 {
-	if (map->GetMapAreaXY(p_x, p_y) == map->GetEmptyTile()) 
+	if (map.GetMapAreaXY(p_x, p_y) == map.GetEmptyTile()) 
 	{
 		has_moved = true;//Functional but logical error. Function checks if player can move. Not if they have moved.
 		return true; 
 	}
 	else
-
 	{
 		has_moved = false;
 		return false;

@@ -22,8 +22,6 @@ private:
 		EXIT_KEY = 0X4F
 	};
 	bool GameRunning = true;
-	
-	//Base Objects which will be used for most operations, entities not included here.
 };
 
 #endif //GAME_H

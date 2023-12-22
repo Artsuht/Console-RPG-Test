@@ -1,82 +1,88 @@
 #include "BaseEntities.h"
 
-void BaseEntities::SpawnEntity(BaseEntities* entity, Map* map)
+void BaseEntities::SpawnEntity(BaseEntities& entity, Map& map)
 {
-	while (map->GetMapAreaXY(entity->GetEntityX(), entity->GetEntityY()) != map->GetEmptyTile())
+	while (!EmptyTile(entity, entity.entity_x, entity.entity_y, map))
 	{
-		entity->RandEntityXY(map->GetMapMinimum(), map->GetMapMaximum());
+		entity.RandEntityXY(map.GetMapMinimum(), map.GetMapMaximum());
 	}
-	map->UpdateMap(entity->GetEntityX(), entity->GetEntityY(), entity->GetEntityBody());
+	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
 }
 
-void BaseEntities::GenerateEntity(BaseEntities* entity[], Map* map, const int& quantity, const int& health, std::string tile)
-{
+void BaseEntities::GenerateEntity(Map& map, int quantity, int health, std::string ent_body)
+{	
+	BaseEntities new_entities(ent_body);
+
 	for (int i = 0; i < quantity; i++)
 	{
-		entity[i] = new BaseEntities(tile, health);
-		entity[i]->SetNumEntities(quantity);
-		SpawnEntity(entity[i], map);
+		entity_duplicates.push_back(new_entities);
+		SpawnEntity(entity_duplicates[i], map);
 	}
 }
 
-void BaseEntities::MoveEntity(BaseEntities* entity[], Map* map, Player* player)
+void BaseEntities::MoveEntity(Map& map, Player& player)
 {
-	for (int i = 0; i < MAXIMUM_ENTITIES; i++)
+	for (int i = 0; i < entity_duplicates.size(); i++)
 	{
-		if (!entity[i]->ChaseStatus())
+		if (entity_duplicates[i].ChaseStatus() == false)
 		{
-			TriggerChase(entity[i], map, player);
-			map->UpdateMap(entity[i]->GetEntityX(), entity[i]->GetEntityY(), map->GetEmptyTile()); //Remove entity tile from old position
-			entity[i]->RandEntityXY(2, 28);
+			TriggerChase(entity_duplicates[i], map, player);
 
-			if (map->GetMapAreaXY(entity[i]->GetEntityX(), entity[i]->GetEntityY()) == map->GetEmptyTile()) //If the coordinates correspond to an empty space, move.
-				map->UpdateMap(entity[i]->GetEntityX(), entity[i]->GetEntityY(), entity[i]->GetEntityBody());
-			else //Re-roll buddy
-				entity[i]->RandEntityXY(2, 28);
+			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map.GetEmptyTile());
+			entity_duplicates[i].RandEntityXY(2, 29);
+
+			while (!EmptyTile(entity_duplicates[i], entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map))
+			{
+				entity_duplicates[i].RandEntityXY(2, 29);
+			}
+			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, entity_duplicates[i].entity_body);
 		}
 		else
 		{
-			ChasePlayer(entity[i], map, player);
+			ChasePlayer(entity_duplicates[i], map, player);
 		}
 	}
 }
 
-void BaseEntities::TriggerChase(BaseEntities* entity, Map* map, Player* player)
+void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 {
-		
+	//Is the entity within two tiles of the player. Diagonally, Vertically, Horizontally
+	if (entity.entity_x == player.GetPlayerX() - 2 || entity.entity_y == player.GetPlayerY() - 2 || entity.entity_x == player.GetPlayerX() + 2, entity.entity_y == player.GetPlayerY() + 2)
+		entity.is_chasing_player = true;
+	else
+		entity.is_chasing_player = false;
 }
-
-void BaseEntities::ChasePlayer(BaseEntities* entity, Map* map, Player* player) //Working on it, entity overwrites tiles. Test implementation
+////////////////DO
+void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player)
 {
-	map->UpdateMap(entity->GetEntityX(), entity->GetEntityY(), map->GetEmptyTile());
+	int old_x = entity.entity_x;
+	int old_y = entity.entity_y;
 
-	if (map->GetMapAreaXY(player->GetPlayerX() + 2, entity->GetEntityY() + 1) == map->GetEmptyTile())
-	{
-		entity->SetEntityX(player->GetPlayerX() + 2);
-		entity->SetEntityY(player->GetPlayerY() + 1);
-	}
+	map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+	entity.entity_x = player.GetPlayerX() + 1;
+	entity.entity_y = player.GetPlayerY() - 1;
+	if (EmptyTile(entity, entity.entity_x, entity.entity_y, map) == true && entity.entity_x > 1 && entity.entity_y > 1 && entity.entity_x < 29 && entity.entity_y < 29)
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
 	else
 	{
-		entity->SetChase(false);
+		entity.entity_x = old_x;
+		entity.entity_y = old_y;
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+		entity.is_chasing_player = false;
 	}
-
-	map->UpdateMap(entity->GetEntityX(), entity->GetEntityY(), entity->GetEntityBody());
 }
 
-bool BaseEntities::EmptyTile(BaseEntities* entity, int ent_y, int ent_x, Map* map)
+bool BaseEntities::EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& map)
 {
-	return (map->GetMapAreaXY(entity->GetEntityX(), entity->GetEntityY()) == map->GetEmptyTile());
+	if (map.GetMapAreaXY(entity.entity_x, entity.entity_y) == map.GetEmptyTile())
+		return true;
+	else 
+		return false;
 }
+
 
 inline int BaseEntities::SpitRand(int min, int max)
 {
 	std::random_device rd;  std::mt19937 gen(rd()); std::uniform_int_distribution<>distr(min, max); return distr(gen);
 }
 
-void BaseEntities::CleanUpEntities(BaseEntities* entity[], int size) 
-{
-	for (int i = 0; i < size; i++)
-	{
-		delete entity[i];
-	}
-}

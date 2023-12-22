@@ -1,29 +1,25 @@
 #include "TerrainObject.h"
 
-void TerrainObject::SpawnTerrainObject(TerrainObject* t_object, Map* map) 
+void TerrainObject::SpawnTerrainObject(TerrainObject& t_object, Map& map) 
 {
-	while (map->GetMapAreaXY(t_object->GetTObjX(), t_object->GetTObjY()) != map->GetEmptyTile())
+	while (map.GetMapAreaXY(t_object_x, t_object_y) != map.GetEmptyTile())
 	{
-		t_object->RandTObjXY(map->GetMapMinimum(), map->GetMapMaximum());
+		RandTObjXY(map.GetMapMinimum(), map.GetMapMaximum());
 	}
-	map->UpdateMap(t_object->GetTObjX(), t_object->GetTObjY(), t_object-> GetTObjBody());
+	map.UpdateMap(t_object_x, t_object_y, t_object_tile);
 }
 
-void TerrainObject::CleanUpTObjs(TerrainObject* t_object[], int size)
+void TerrainObject::GenerateTerrain(int quantity, Map& map, std::string tile)
 {
-	for (int i = 0; i < size; i++)
-	{
-		delete t_object[i];
-	}
-}
+	TerrainObject new_tobject(tile);
+	std::vector<TerrainObject> t_objects;
 
-void TerrainObject::GenerateTerrain(TerrainObject* t_object[], Map* map, int quantity, std::string tile)
-{
 	for (int i = 0; i < quantity; i++)
 	{
-			t_object[i] = new TerrainObject(tile);
-			SpawnTerrainObject(t_object[i], map);
-    }
+		t_objects.push_back(new_tobject);
+		SpawnTerrainObject(t_objects[i], map);
+	}
 }
+
 
 inline int TerrainObject::SpitRand(int min, int max) { std::random_device rd; std::mt19937 gen(rd()); std::uniform_int_distribution<>distr(min, max); return distr(gen); }
