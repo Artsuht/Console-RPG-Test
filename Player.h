@@ -14,13 +14,9 @@ public:
 	void UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y);
 	bool EmptyTile(Map& map, int p_x, int p_y);
 	//Getters
-	bool PlayerMoved() { return has_moved; }
 	int GetPlayerX() { return player_x; }
 	int GetPlayerY() { return player_y; }
 	std::string GetPlayerBody() { return player_body; }
-	//Setters 
-	int SetPlayerX(int p_x) { player_x = p_x; }
-	int SetPlayerY(int p_y) { player_y = p_y; }
 private:
 
 	enum CONTROLS
@@ -44,7 +40,6 @@ private:
 		MOVEMENT
 	};
 
-	bool has_moved = false;
 	int player_x = 0, player_y = 0;
 	std::vector<std::string>player_inventory;
 	const std::string player_body = "@";
