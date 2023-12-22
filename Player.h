@@ -16,7 +16,6 @@ public:
 	//Getters
 	int GetPlayerX() { return player_x; }
 	int GetPlayerY() { return player_y; }
-	std::string GetPlayerBody() { return player_body; }
 private:
 
 	enum CONTROLS
