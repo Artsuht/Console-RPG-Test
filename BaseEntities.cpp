@@ -26,6 +26,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 	{
 		if (!entity_duplicates[i].ChaseStatus())
 		{
+			if(!ongoing_chase) //One entity to chase the player at a time.
 			TriggerChase(entity_duplicates[i], map, player);
 
 			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map.GetEmptyTile());
@@ -39,6 +40,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 		}
 		else
 		{
+			ongoing_chase = true;
 			ChasePlayer(entity_duplicates[i], map, player);
 		}
 	}
@@ -46,8 +48,8 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 
 void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 {
-	//Is the entity two tiles away from the player. Vertically, Horizontally 
-	if (entity.entity_x == player.GetPlayerX() - 2 || entity.entity_y == player.GetPlayerY() - 2 || entity.entity_x == player.GetPlayerX() + 2, entity.entity_y == player.GetPlayerY() + 2)
+	//Is the entity within two tiles of the player. Vertically, Horizontally 
+	if (entity.entity_x <= player.GetPlayerX() - 2 || entity.entity_y <= player.GetPlayerY() - 2 || entity.entity_x <= player.GetPlayerX() + 2, entity.entity_y <= player.GetPlayerY() + 2)
 		entity.is_chasing_player = true;
 	else
 		entity.is_chasing_player = false;
@@ -61,17 +63,20 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
 
 	entity.entity_x = player.GetPlayerX() + 1;
-	entity.entity_y = player.GetPlayerY() - 1;
+	entity.entity_y = player.GetPlayerY() + 1;
 
-	if (EmptyTile(entity, entity.entity_x, entity.entity_y, map))
-	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
-        else
-        {
-	entity.entity_x = old_x;
-	entity.entity_y = old_y;
-	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
-	entity.is_chasing_player = false;
-       }
+	if (EmptyTile(entity, entity.entity_x + 1, entity.entity_y + 1, map))
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	else
+	{
+		ongoing_chase = false;
+		entity.is_chasing_player = false;
+
+		entity.entity_x = old_x;
+		entity.entity_y = old_y;
+		
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
+	}
 }
 
 bool BaseEntities::EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& map)
