@@ -60,13 +60,14 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	int old_x = entity.entity_x;
 	int old_y = entity.entity_y;
 
-	map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
-
-	entity.entity_x = player.GetPlayerX() + 1;
-	entity.entity_y = player.GetPlayerY() + 1;
 
 	if (EmptyTile(entity, entity.entity_x + 1, entity.entity_y + 1, map))
+	{
+		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+		entity.entity_x = player.GetPlayerX() + 1;
+		entity.entity_y = player.GetPlayerY() + 1;
 		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	}
 	else
 	{
 		ongoing_chase = false;

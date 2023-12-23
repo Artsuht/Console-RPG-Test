@@ -6,6 +6,9 @@
 #include <random>
 #include "Player.h"
 
+constexpr int MAXIMUM_ENTITES = 10; //Put into namespace or seperate constants header?
+constexpr int DEFAULT_HEALTH = 100;
+
 class BaseEntities
 {
 public:
@@ -36,3 +39,4 @@ private:
 };
 
 #endif //BASEENTITIES_H
+

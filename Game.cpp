@@ -5,22 +5,19 @@ void Game::GameLoop()
 	
 	Map map;
 
-	BaseEntities goblin("G", map, 100, 15);
-	TerrainObject trees("*", map, 29);
-	TerrainObject rocks("^", map, 29);
-	TerrainObject bushes("&", map, 29);
+	BaseEntities goblin("G", map, DEFAULT_HEALTH, MAXIMUM_ENTITES);
+	TerrainObject trees("*", map, MAX_TERRAIN);
+	TerrainObject rocks("^", map, MAX_TERRAIN);
+	TerrainObject bushes("&", map, MAX_TERRAIN);
 
 	Player player(map);
-
 	map.DrawMap();
 
 	while (GameRunning)
 	{
-		Sleep(200);
+		Sleep(1000);
 		player.MovePlayer(map);
 		goblin.MoveEntity(map, player);
-		if (GetAsyncKeyState(EXIT_KEY))
-			GameRunning = false;
 	}
 }
 

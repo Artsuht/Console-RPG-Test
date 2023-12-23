@@ -3,14 +3,20 @@
 
 #include <vector>
 #include "Map.h"
+#include "Armour.h"
 
 class Player
 {
 public:
-	Player(Map& map) { SpawnPlayer(map); }
+	Player(Map& map)
+	{
+		SpawnPlayer(map); 
+	    Weapons b_sword("Bronze Sword", 1,BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
+		player_weapons.push_back(b_sword); //Starting Weapon
+	}
 	void MovePlayer(Map& map);
 	void SpawnPlayer(Map& map);
-	void DisplayStats();
+	void DisplayInv();
 	void UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y);
 	bool EmptyTile(Map& map, int p_x, int p_y);
 	//Getters
@@ -39,9 +45,17 @@ private:
 		MOVEMENT
 	};
 
+	//Player Stats
+	int player_health = 0;
+	int strength = 1;
+	int agility = 1;
+
+
 	int player_x = 0, player_y = 0;
-	std::vector<std::string>player_inventory;
 	const std::string player_body = "@";
+	//Inventory Items
+	std::vector<Weapons>player_weapons;
+	std::vector<Armour>player_armour;
 };
 
 #endif //PLAYER_H

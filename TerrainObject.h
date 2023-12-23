@@ -4,6 +4,8 @@
 #include "Game.h"
 #include <random>
 
+constexpr int MAX_TERRAIN = 29;
+
 class TerrainObject
 {
 public:
@@ -15,6 +17,7 @@ public:
 	//Setters
 	void RandTObjXY(int min, int max) { t_object_x = SpitRand(min, max); t_object_y = SpitRand(min, max); }
 private:
+	int t_object_health = 0;
 	int t_object_x = 0, t_object_y = 0;
 	std::string t_object_tile;
 };

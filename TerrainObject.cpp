@@ -2,7 +2,7 @@
 
 void TerrainObject::SpawnTerrainObject(TerrainObject& t_object, Map& map) 
 {
-	while (map.GetMapAreaXY(t_object.t_object_x, t_object.t_object_x) != map.GetEmptyTile())
+	while (map.GetMapAreaXY(t_object.t_object_x, t_object.t_object_y) != map.GetEmptyTile())
 	{
 		t_object.RandTObjXY(map.GetMapMinimum(), map.GetMapMaximum());
 	}

@@ -9,7 +9,7 @@ void Player::MovePlayer(Map& map)
 		//The opposite of the direction travelled renders the previous position hence the use of enum offsets. Same logic applies to rest. 
 		UpdatePosition(map, player_x, player_y + DOWN, player_x, player_y); 
 	}
-        else if (GetAsyncKeyState(KEY_S) && EmptyTile(map, player_x, player_y + DOWN)) //DOWN
+    else if (GetAsyncKeyState(KEY_S) && EmptyTile(map, player_x, player_y + DOWN)) //DOWN
 	{
 		++player_y;
 		UpdatePosition(map, player_x, player_y + UP, player_x, player_y);
@@ -41,8 +41,13 @@ void Player::SpawnPlayer(Map& map)
 	map.UpdateMap(player_x, player_y, player_body);
 }
 
-void Player::DisplayStats()
+void Player::DisplayInv()
 {
+	for (auto i : player_weapons)
+	{
+		std::cout << "Weapons - Name";
+		std::cout << i.GetName() << std::endl;
+	}
 }
 
 void Player::UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y) //Remove player from previous map tile in previous x y, update corresponding X Y tile with player.
