@@ -29,7 +29,7 @@ public:
 private:
 	std::vector<BaseEntities>entity_duplicates;
 	std::vector<std::string>inventory;
-    std::string entity_body;
+        std::string entity_body;
 
 	int entity_x = 0, entity_y = 0;
 	int entity_health = 0;
