@@ -9,7 +9,7 @@ void Player::MovePlayer(Map& map)
 		//The opposite of the direction travelled renders the previous position hence the use of enum offsets. Same logic applies to rest. 
 		UpdatePosition(map, player_x, player_y + DOWN, player_x, player_y); 
 	}
-    else if (GetAsyncKeyState(KEY_S) && EmptyTile(map, player_x, player_y + DOWN)) //DOWN
+        else if (GetAsyncKeyState(KEY_S) && EmptyTile(map, player_x, player_y + DOWN)) //DOWN
 	{
 		++player_y;
 		UpdatePosition(map, player_x, player_y + UP, player_x, player_y);
