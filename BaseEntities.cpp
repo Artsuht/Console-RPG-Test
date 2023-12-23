@@ -63,15 +63,15 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	entity.entity_x = player.GetPlayerX() + 1;
 	entity.entity_y = player.GetPlayerY() - 1;
 
-	if (EmptyTile(entity, entity.entity_x, entity.entity_y, map) == true && entity.entity_x > 1 && entity.entity_y > 1 && entity.entity_x < 29 && entity.entity_y < 29)
-		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
-	else
-	{
-		entity.entity_x = old_x;
-		entity.entity_y = old_y;
-		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
-		entity.is_chasing_player = false;
-	}
+	if (EmptyTile(entity, entity.entity_x, entity.entity_y, map))
+	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+        else
+        {
+	entity.entity_x = old_x;
+	entity.entity_y = old_y;
+	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
+	entity.is_chasing_player = false;
+       }
 }
 
 bool BaseEntities::EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& map)
