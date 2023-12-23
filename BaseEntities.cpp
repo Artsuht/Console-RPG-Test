@@ -1,8 +1,6 @@
 #include "BaseEntities.h"
 #include "Combat.h"
 
-extern bool START_COMBAT;
-
 void BaseEntities::SpawnEntity(BaseEntities& entity, Map& map)
 {
 	while (!EmptyTile(entity, entity.entity_x, entity.entity_y, map))
