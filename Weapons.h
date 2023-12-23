@@ -7,9 +7,9 @@ constexpr int METAL_SWORD_DAMAGE = 20; //Put into namespace or seperate constant
 constexpr int SILVER_SWORD_DAMAGE = 10;
 constexpr int BRONZE_SWORD_DAMAGE = 5;
 
-constexpr int MAX_WEAPONS = 1; //Maximum amount of weapons player can have equipped
+constexpr int MAX_WEAPONS = 1;
 
-enum WEAPON_EFFECT //Will play a role in determining damage dealt in armour class
+enum WEAPON_EFFECT
 {
 	PIERCING,
 	SLASHING,
@@ -21,7 +21,7 @@ enum WEAPON_TYPE
 	MELEE_WEAPON
 };
 
-enum WEAPON_MATERIAL //Will play a role in determining damage dealt in the armour class
+enum WEAPON_MATERIAL 
 {
 	METAL_WEAPON,
 	SILVER_WEAPON,
@@ -31,7 +31,6 @@ enum WEAPON_MATERIAL //Will play a role in determining damage dealt in the armou
 class Weapons
 {
 public:
-	//Generate a weapon with specific stat requirements.
 	Weapons(std::string wpn_name, int lvl_req, int dmg, int str_req, int agil_req, int wpn_type) : level_req(lvl_req), name(wpn_name), str_requirement(str_req), agil_requirement(agil_req), type(wpn_type){ }
 	Weapons();
 	//Getters
