@@ -6,7 +6,7 @@
 
 void BeginCombat(Player& player, BaseEntities& entity);
 void CheckCombat(Player& player, BaseEntities& entity);
-int CalcDamage(Player& player, BaseEntities& entity);
+int CalcDamage(Armour& armour, Weapons& weapons);
 
 bool START_COMBAT;
 
@@ -23,7 +23,7 @@ void BeginCombat(Player& player, BaseEntities& entity)
 	}
 }
 
-int CalcDamage(Player& player, BaseEntities& entity)
+int CalcDamage(Armour& armour, Weapons& weapons)
 {
 
 	return 0;
