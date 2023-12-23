@@ -65,7 +65,6 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 
 	extern bool START_COMBAT;
 	START_COMBAT = IsCaughtPlayer(entity, player);
-	map.DrawMap();
 	CheckCombat(player, entity);
 
 	if (EmptyTile(entity, entity.entity_x + player.GetPlayerX() + 1, entity.entity_y + player.GetPlayerY() + 1, map))
