@@ -41,12 +41,16 @@ void Player::SpawnPlayer(Map& map)
 	map.UpdateMap(player_x, player_y, player_body);
 }
 
-void Player::DisplayInv()
+void Player::DisplayInv() //WIP
 {
 	for (auto i : player_weapons)
 	{
-		std::cout << "Weapons - Name";
-		std::cout << i.GetName() << std::endl;
+		std::cout << "Weapons - Name\n" << i.GetName() << std::endl;
+	}
+
+	for (auto i : player_armour)
+	{
+		std::cout << "Armour - Name:\n" << i.GetName() << std::endl;
 	}
 }
 
