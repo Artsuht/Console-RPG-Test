@@ -24,7 +24,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 {
 	for (int i = 0; i < entity_duplicates.size(); i++)
 	{
-		if (entity_duplicates[i].ChaseStatus() == false)
+		if (!entity_duplicates[i].ChaseStatus())
 		{
 			TriggerChase(entity_duplicates[i], map, player);
 
