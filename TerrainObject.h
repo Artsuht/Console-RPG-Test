@@ -1,7 +1,7 @@
 #ifndef TERRAINOBJECT_H
 #define TERRAINOBJECT_H
 
-#include "Game.h"
+#include "Map.h"
 #include <random>
 
 constexpr int MAX_TERRAIN = 29;

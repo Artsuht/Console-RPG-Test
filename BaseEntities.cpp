@@ -1,4 +1,7 @@
 #include "BaseEntities.h"
+#include "Combat.h"
+
+extern bool START_COMBAT;
 
 void BaseEntities::SpawnEntity(BaseEntities& entity, Map& map)
 {
@@ -9,9 +12,9 @@ void BaseEntities::SpawnEntity(BaseEntities& entity, Map& map)
 	map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
 }
 
-void BaseEntities::GenerateEntity(Map& map, int quantity, int health, std::string ent_body)
+void BaseEntities::GenerateEntity(Map& map, std::string ent_name, int quantity, int health, std::string ent_body)
 {	
-	BaseEntities new_entities(ent_body);
+	BaseEntities new_entities(ent_name,ent_body, health);
 
 	for (int i = 0; i < quantity; i++)
 	{
@@ -49,7 +52,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 {
 	//Is the entity within two tiles of the player. Vertically, Horizontally 
-	if (entity.entity_x <= player.GetPlayerX() - 2 || entity.entity_y <= player.GetPlayerY() - 2 || entity.entity_x <= player.GetPlayerX() + 2, entity.entity_y <= player.GetPlayerY() + 2)
+	if (entity.entity_x <= player.GetPlayerX() - 3 || entity.entity_y <= player.GetPlayerY() - 3 || entity.entity_x <= player.GetPlayerX() + 3, entity.entity_y <= player.GetPlayerY() + 3)
 		entity.is_chasing_player = true;
 	else
 		entity.is_chasing_player = false;
@@ -60,8 +63,12 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	int old_x = entity.entity_x;
 	int old_y = entity.entity_y;
 
+	extern bool START_COMBAT;
+	START_COMBAT = IsCaughtPlayer(entity, player);
+	map.DrawMap();
+	CheckCombat(player, entity);
 
-	if (EmptyTile(entity, entity.entity_x + 1, entity.entity_y + 1, map))
+	if (EmptyTile(entity, entity.entity_x + player.GetPlayerX() + 1, entity.entity_y + player.GetPlayerY() + 1, map))
 	{
 		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
 		entity.entity_x = player.GetPlayerX() + 1;
@@ -80,12 +87,14 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	}
 }
 
+bool BaseEntities::IsCaughtPlayer(BaseEntities& entity, Player& player)
+{
+	return (entity.entity_x == player.GetPlayerX() - 1 || entity.entity_x == player.GetPlayerX() + 1 || entity.entity_y == player.GetPlayerY() - 1 || entity.entity_y == player.GetPlayerY() + 1);
+}
+
 bool BaseEntities::EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& map)
 {
-	if (map.GetMapAreaXY(entity.entity_x, entity.entity_y) == map.GetEmptyTile())
-		return true;
-	else 
-		return false;
+	return (map.GetMapAreaXY(entity.entity_x, entity.entity_y) == map.GetEmptyTile());
 }
 
 

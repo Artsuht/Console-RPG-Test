@@ -5,7 +5,7 @@ void Game::GameLoop()
 	
 	Map map;
 
-	BaseEntities goblin("G", map, DEFAULT_HEALTH, MAXIMUM_ENTITES);
+	BaseEntities goblin("Goblin", "G", map, DEFAULT_HEALTH, MAXIMUM_ENTITES);
 	TerrainObject trees("*", map, MAX_TERRAIN);
 	TerrainObject rocks("^", map, MAX_TERRAIN);
 	TerrainObject bushes("&", map, MAX_TERRAIN);
@@ -15,7 +15,7 @@ void Game::GameLoop()
 
 	while (GameRunning)
 	{
-		Sleep(1000);
+		Sleep(350);
 		player.MovePlayer(map);
 		goblin.MoveEntity(map, player);
 	}
