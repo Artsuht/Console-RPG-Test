@@ -23,15 +23,16 @@ public:
 	bool ChaseStatus() { return is_chasing_player; }
 	//Setter
 	void RandEntityXY(int min, int max) { entity_x = SpitRand(min, max); entity_y = SpitRand(min, max); }
-	void SetChase(bool chasing_state) { is_chasing_player = chasing_state; }
 private:
 	std::vector<BaseEntities>entity_duplicates;
 	std::vector<std::string>inventory;
-    std::string entity_body;
+        std::string entity_body;
 
 	int entity_x = 0, entity_y = 0;
 	int entity_health = 0;
+
 	bool is_chasing_player = false;
+	bool ongoing_chase = false;
 };
 
 #endif //BASEENTITIES_H
