@@ -43,12 +43,12 @@ void Player::SpawnPlayer(Map& map)
 
 void Player::DisplayInv() //WIP
 {
-	for (auto i : player_weapons)
+	for (auto& i : player_weapons)
 	{
 		std::cout << "Weapons - Name\n" << i.GetName() << std::endl;
 	}
 
-	for (auto i : player_armour)
+	for (auto& i : player_armour)
 	{
 		std::cout << "Armour - Name:\n" << i.GetName() << std::endl;
 	}
