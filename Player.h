@@ -11,7 +11,7 @@ public:
 	Player(Map& map)
 	{
 		SpawnPlayer(map); 
-	    Weapons b_sword("Bronze Sword", 1,BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
+	        Weapons b_sword("Bronze Sword", 1, BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
 		player_weapons.push_back(b_sword); //Starting Weapon
 	}
 	void MovePlayer(Map& map);
