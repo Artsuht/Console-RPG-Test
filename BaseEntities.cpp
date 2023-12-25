@@ -21,11 +21,11 @@ void BaseEntities::GenerateEntity(Map& map, std::string ent_name, int quantity, 
 	}
 }
 
-void BaseEntities::MoveEntity(Map& map, Player& player)
+void BaseEntities::MoveEntity(Map& map, Player& player) //Maybe I have way too many things going on in one function
 {
 	for (int i = 0; i < entity_duplicates.size(); i++)
 	{
-		if (!entity_duplicates[i].ChaseStatus())
+		if (!entity_duplicates[i].is_chasing_player && !entity_duplicates[i].is_dead)
 		{
 			if(!ongoing_chase) //One entity to chase the player at a time.
 			TriggerChase(entity_duplicates[i], map, player);
@@ -44,6 +44,9 @@ void BaseEntities::MoveEntity(Map& map, Player& player)
 			ongoing_chase = true;
 			ChasePlayer(entity_duplicates[i], map, player);
 		}
+
+		if (entity_duplicates[i].is_dead) 
+			entity_duplicates.erase(entity_duplicates.begin() + i);
 	}
 }
 
@@ -56,7 +59,7 @@ void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 		entity.is_chasing_player = false;
 }
 ////////////////TO DO
-void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Pretty much you cannot escape gg //How will this handle multiple entities
+void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Working on implementation
 {
 	int old_x = entity.entity_x;
 	int old_y = entity.entity_y;
@@ -64,24 +67,6 @@ void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) /
 	extern bool START_COMBAT;
 	START_COMBAT = IsCaughtPlayer(entity, player);
 	CheckCombat(player, entity);
-
-	if (EmptyTile(entity, entity.entity_x + player.GetPlayerX() + 1, entity.entity_y + player.GetPlayerY() + 1, map))
-	{
-		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
-		entity.entity_x = player.GetPlayerX() + 1;
-		entity.entity_y = player.GetPlayerY() + 1;
-		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
-	}
-	else
-	{
-		ongoing_chase = false;
-		entity.is_chasing_player = false;
-
-		entity.entity_x = old_x;
-		entity.entity_y = old_y;
-		
-		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body); //Assumes previous position is unoccupied
-	}
 }
 
 bool BaseEntities::IsCaughtPlayer(BaseEntities& entity, Player& player)
@@ -93,7 +78,6 @@ bool BaseEntities::EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& ma
 {
 	return (map.GetMapAreaXY(entity.entity_x, entity.entity_y) == map.GetEmptyTile());
 }
-
 
 inline int BaseEntities::SpitRand(int min, int max)
 {

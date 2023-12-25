@@ -11,7 +11,9 @@ public:
 	Player(Map& map)
 	{
 		SpawnPlayer(map); 
-	    Weapons b_sword("Bronze Sword", 1,BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
+	    Weapons b_sword("Bronze Sword", 1, METAL_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
+		Armour c_plate("Bronze Chestplate", 1, 0, 0, BRONZE_ARMOUR, BRONZE_ARMOUR_DUR);
+		player_armour.push_back(c_plate);
 		player_weapons.push_back(b_sword); //Starting Weapon
 	}
 	void MovePlayer(Map& map);
@@ -22,6 +24,12 @@ public:
 	//Getters
 	int GetPlayerX() { return player_x; }
 	int GetPlayerY() { return player_y; }
+	int GetPlayerHealth() { return player_health; }
+
+	Weapons& GetPlayerWeapon() { return player_weapons[0]; }
+	Armour& GetPlayerArmour() { return player_armour[0]; }
+	//Set
+	void SetPlayerHealth(int p_health) { player_health += p_health; }
 private:
 
 	enum CONTROLS
@@ -46,7 +54,7 @@ private:
 	};
 
 	//Player Stats
-	int player_health = 0;
+	int player_health = 100;
 	int strength = 1;
 	int agility = 1;
 

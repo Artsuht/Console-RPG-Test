@@ -32,7 +32,8 @@ class Weapons
 {
 public:
 	//Generate a weapon with specific stat requirements.
-	Weapons(std::string wpn_name, int lvl_req, int dmg, int str_req, int agil_req, int wpn_type) : level_req(lvl_req), name(wpn_name), str_requirement(str_req), agil_requirement(agil_req), type(wpn_type){ }
+	Weapons(std::string wpn_name, int lvl_req, int dmg, int str_req, int agil_req, int wpn_type) : damage(dmg),
+		level_req(lvl_req), name(wpn_name), str_requirement(str_req), agil_requirement(agil_req), type(wpn_type){ }
 	//Getters
 	std::string GetName() { return name; }
 	int GetDamage() { return damage; }

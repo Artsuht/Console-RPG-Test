@@ -8,7 +8,7 @@ constexpr int METAL_ARMOUR_DUR = 35;
 constexpr int SILVER_ARMOUR_DUR = 25;
 constexpr int BRONZE_ARMOUR_DUR = 15;
 
-constexpr int MAX_ARMOUR = 4; //Maximum amount of armour that can be equipped
+constexpr int MAX_ARMOUR_EQUIPPED = 4; //Maximum amount of armour that can be equipped
 
 enum ARMOUR_TYPE 
 {
@@ -28,15 +28,18 @@ enum ARMOUR_MATERIAL
 class Armour
 {
 public:
-	Armour(std::string armr_name, int lvl_req, int str_req, int agil_req, int armr_type) : name(armr_name), level_req(lvl_req), str_requirement(str_req), agil_requirement(agil_req), type(armr_type){}
+	Armour(std::string armr_name, int lvl_req, int str_req, int agil_req, int armr_type, int drbility) : durability(drbility),
+		name(armr_name), level_req(lvl_req), str_requirement(str_req), agil_requirement(agil_req), type(armr_type){}
 	//Getters
 	std::string GetName() { return name; }
 	int GetType() { return type; }
 	int GetStrReq() { return str_requirement; }
 	int GetAgilReq() { return agil_requirement; }
 	int GetLevelReq() { return level_req; }
+	int GetDurability() { return durability; }
 private:
 	std::string name;
+	int durability = 0;
 	int level_req = 0;
 	int str_requirement = 0;
 	int agil_requirement = 0;

@@ -5,13 +5,14 @@ void Game::GameLoop()
 	
 	Map map;
 
-	BaseEntities goblin("Goblin", "G", map, DEFAULT_HEALTH, MAXIMUM_ENTITES);
 	TerrainObject trees("*", map, MAX_TERRAIN);
 	TerrainObject rocks("^", map, MAX_TERRAIN);
 	TerrainObject bushes("&", map, MAX_TERRAIN);
 
 	Player player(map);
 	map.DrawMap();
+
+	BaseEntities goblin("Goblin", "G", map, DEFAULT_HEALTH, MAXIMUM_ENTITES);
 
 	while (GameRunning)
 	{
