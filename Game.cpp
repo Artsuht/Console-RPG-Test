@@ -16,7 +16,7 @@ void Game::GameLoop()
 
 	while (GameRunning)
 	{
-		Sleep(350);
+		Sleep(250);
 		player.MovePlayer(map);
 		goblin.MoveEntity(map, player);
 	}

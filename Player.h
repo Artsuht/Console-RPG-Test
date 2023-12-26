@@ -58,7 +58,6 @@ private:
 	int strength = 1;
 	int agility = 1;
 
-
 	int player_x = 0, player_y = 0;
 	const std::string player_body = "@";
 	//Inventory Items

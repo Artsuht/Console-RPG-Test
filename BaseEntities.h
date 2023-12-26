@@ -6,7 +6,7 @@
 #include <random>
 #include "Player.h"
 
-constexpr int MAXIMUM_ENTITES = 2; //Put into namespace or seperate constants header?
+constexpr int MAXIMUM_ENTITES = 5; //Put into namespace or seperate constants header?
 constexpr int DEFAULT_HEALTH = 100; 
 
 static Weapons b_sword("Bronze Sword", 1, BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON);

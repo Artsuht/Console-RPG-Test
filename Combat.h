@@ -106,10 +106,9 @@ void Fight(Player& player, BaseEntities& entity)
 	{
 		prev_health = player.GetPlayerHealth();
 
-		player.SetPlayerHealth(CalcDamage(player.GetPlayerArmour(), entity.GetEntWeapon())); //Test Implementation, doesn't work as intended easily fixable
+		player.SetPlayerHealth(CalcDamage(player.GetPlayerArmour(), entity.GetEntWeapon())); //Test Implementation, just needed values
 		entity.SetEntHealth(CalcDamage(entity.GetEntArmour(), player.GetPlayerWeapon()));
 
-		Sleep(500);
 
 		std::cout << "You took " << prev_health - player.GetPlayerHealth() << " Damage!" << std::endl;
 		std::cout << "Current Health: " << player.GetPlayerHealth() << std::endl;

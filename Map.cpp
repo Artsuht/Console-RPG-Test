@@ -20,7 +20,7 @@ void Map::UpdateMap(int entity_x, int entity_y, std::string entity_char)
 	map[entity_x][entity_y] = entity_char;
 }
 
-void Map::DrawMap()
+void Map::DrawMap() //If only double buffer
 {
 	for (int rows = 0; rows < map_width; rows++)
 	{

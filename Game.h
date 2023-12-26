@@ -9,8 +9,6 @@
 class Game
 {
 public:
-	void LoadTerrain();
-	void LoadMobs();
 	void GameLoop();
 	void DisplayMenu();
 private:

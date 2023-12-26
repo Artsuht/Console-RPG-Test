@@ -45,8 +45,11 @@ void BaseEntities::MoveEntity(Map& map, Player& player) //Maybe I have way too m
 			ChasePlayer(entity_duplicates[i], map, player);
 		}
 
-		if (entity_duplicates[i].is_dead) 
+		if (entity_duplicates[i].is_dead)
+		{
+			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map.GetEmptyTile());
 			entity_duplicates.erase(entity_duplicates.begin() + i);
+		}
 	}
 }
 
@@ -58,15 +61,35 @@ void BaseEntities::TriggerChase(BaseEntities& entity, Map& map, Player& player)
 	else
 		entity.is_chasing_player = false;
 }
-////////////////TO DO
-void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Working on implementation
-{
-	int old_x = entity.entity_x;
-	int old_y = entity.entity_y;
 
-	extern bool START_COMBAT;
-	START_COMBAT = IsCaughtPlayer(entity, player);
-	CheckCombat(player, entity);
+void BaseEntities::ChasePlayer(BaseEntities& entity, Map& map, Player& player) //Literal homing missiles
+{
+	if (entity.entity_x < player.GetPlayerX() && EmptyTile(entity, entity.entity_x + 1, entity.entity_y, map)) //Implement a local update function to clean this up
+	{
+		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+		++entity.entity_x;
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	}
+	else if (entity.entity_x > player.GetPlayerX() && EmptyTile(entity, entity.entity_x - 1, entity.entity_y, map))
+	{
+		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+		--entity.entity_x;
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	}
+
+	if (entity.entity_y < player.GetPlayerY() && EmptyTile(entity, entity.entity_x, entity.entity_y + 1, map))
+	{
+		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+		++entity.entity_y;
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	}
+	else if (entity.entity_y > player.GetPlayerY() && EmptyTile(entity, entity.entity_x, entity.entity_y - 1, map))
+	{
+		map.UpdateMap(entity.entity_x, entity.entity_y, map.GetEmptyTile());
+		--entity.entity_y;
+		map.UpdateMap(entity.entity_x, entity.entity_y, entity.entity_body);
+	}
+
 }
 
 bool BaseEntities::IsCaughtPlayer(BaseEntities& entity, Player& player)

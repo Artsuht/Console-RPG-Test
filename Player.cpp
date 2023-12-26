@@ -58,7 +58,9 @@ void Player::UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y) //
 {
 	map.UpdateMap(p_x, p_y, map.GetEmptyTile());
 	map.UpdateMap(player_x, player_y, player_body);
+
 	system("cls");
+
 	map.DrawMap();
 }
 
