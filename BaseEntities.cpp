@@ -31,7 +31,7 @@ void BaseEntities::MoveEntity(Map& map, Player& player) //Maybe I have way too m
 			TriggerChase(entity_duplicates[i], map, player);
 
 			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map.GetEmptyTile());
-			entity_duplicates[i].RandEntityXY(map.GetMapMinimum(), map.GetMapMinimum());
+			entity_duplicates[i].RandEntityXY(map.GetMapMinimum(), map.GetMapMaximum());
 
 			while (!EmptyTile(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map))
 			{
