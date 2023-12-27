@@ -6,10 +6,10 @@
 #include <random>
 #include "Player.h"
 
-constexpr int MAXIMUM_ENTITES = 5; //Put into namespace or seperate constants header?
+constexpr int MAXIMUM_ENTITES = 10; //Put into namespace or seperate constants header?
 constexpr int DEFAULT_HEALTH = 100; 
 
-static Weapons b_sword("Bronze Sword", 1, BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON);
+static Weapons b_sword("Bronze Sword", 1, BRONZE_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); //Testing
 static Armour c_plate("Bronze Chestplate", 1, 0, 0, BRONZE_ARMOUR, BRONZE_ARMOUR_DUR);
 
 class BaseEntities
@@ -29,11 +29,12 @@ public:
 	void TriggerChase(BaseEntities& entity, Map& map, Player& player);
 	void ChasePlayer(BaseEntities& entity, Map& map, Player& player);
 	void RandEntityXY(int min, int max) { entity_x = SpitRand(min, max); entity_y = SpitRand(min, max); }
+	void UpdatePosition(BaseEntities& entity, Map& map, int p_x, int p_y);
 
 	int SpitRand(int min, int max); //Does what it says on the tin
 
 	bool IsCaughtPlayer(BaseEntities& entity, Player& player);
-	bool EmptyTile(BaseEntities& entity, int ent_y, int ent_x, Map& map);
+	bool EmptyTile(int e_x, int e_y, Map& map);
 	
 	Weapons& GetEntWeapon() { return entity_weapons[0]; }
 	Armour& GetEntArmour() { return entity_armor[0]; }

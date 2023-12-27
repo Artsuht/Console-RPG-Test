@@ -5,7 +5,6 @@
 #include "BaseEntities.h"
 
 static void BeginCombat(Player& player, BaseEntities& entity);
-void CheckCombat(Player& player, BaseEntities& entity);
 static int CalcDamage(Armour& armour, Weapons& weapons);
 static void Fight(Player& player, BaseEntities& entity);
 static void FleeCombat(Player& player, int& flee_attempts);
@@ -13,7 +12,7 @@ static void Bargain(Player& player, int&  bargain_attempts);
 static inline int SpitRand(int min, int max);
 
 static constexpr int MAX_ATTEMPTS = 3;
-bool START_COMBAT;
+bool start_combat;
 
 enum COMBAT_OPTIONS
 {
@@ -24,11 +23,6 @@ enum COMBAT_OPTIONS
 
 //Put all this into a source file
 
-inline void CheckCombat(Player& player, BaseEntities& entity) {
-	if (START_COMBAT) 
-	BeginCombat(player, entity);
-}
-
 static void FleeCombat(Player& player, int& flee_attempts) //Chance based
 {
 	if (flee_attempts < MAX_ATTEMPTS)
@@ -36,7 +30,7 @@ static void FleeCombat(Player& player, int& flee_attempts) //Chance based
 		if (SpitRand(0, 3) * 3 % 2)
 		{
 			std::cout << "You successfuly fled! Move to continue." << std::endl;
-			START_COMBAT = false;
+			start_combat = false;
 		}
 		else
 		{
@@ -64,7 +58,7 @@ static void BeginCombat(Player& player, BaseEntities& entity)
 	system("cls");
 	std::cout << "You've been caught by a " + entity.GetEntName() + "!\n" << std::endl;
 
-	while (START_COMBAT)
+	while (start_combat)
 	{
 		std::cout << "Your Options:\n[0] Fight\n[1] Bargain\n[2] Flee\n" << std::endl;
 		
@@ -117,7 +111,7 @@ void Fight(Player& player, BaseEntities& entity)
 		std::cout << std::endl;
 	}
 
-	START_COMBAT = false;
+     start_combat = false;
 	if (player.GetPlayerHealth() > 0)
 	{
 		std::cout << "You have beaten the " + entity.GetEntName() << std::endl; 

@@ -19,7 +19,7 @@ public:
 	void MovePlayer(Map& map);
 	void SpawnPlayer(Map& map);
 	void DisplayInv();
-	void UpdatePosition(Map& map, int p_x, int p_y, int cur_x, int cur_y);
+	void UpdatePosition(Map& map, int p_x, int p_y);
 	bool EmptyTile(Map& map, int p_x, int p_y);
 	//Getters
 	int GetPlayerX() { return player_x; }
@@ -40,7 +40,7 @@ private:
 		KEY_D = 0x44,
 	};
 
-	enum DIRECTIONS //To improve readability of collision handling
+	enum DIRECTIONS 
 	{
 		LEFT = -1, UP = -1,
 		RIGHT = 1, DOWN = 1
