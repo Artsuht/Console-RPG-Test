@@ -11,10 +11,11 @@ public:
 	Player(Map& map)
 	{
 		SpawnPlayer(map); 
+		//Testing Weapons
 	    Weapons b_sword("Bronze Sword", 1, METAL_SWORD_DAMAGE, 0, 0, MELEE_WEAPON); 
 		Armour c_plate("Bronze Chestplate", 1, 0, 0, BRONZE_ARMOUR, BRONZE_ARMOUR_DUR);
 		player_armour.push_back(c_plate);
-		player_weapons.push_back(b_sword); //Starting Weapon
+		player_weapons.push_back(b_sword); 
 	}
 	void MovePlayer(Map& map);
 	void SpawnPlayer(Map& map);
@@ -26,8 +27,8 @@ public:
 	int GetPlayerY() { return player_y; }
 	int GetPlayerHealth() { return player_health; }
 
-	Weapons& GetPlayerWeapon() { return player_weapons[0]; }
-	Armour& GetPlayerArmour() { return player_armour[0]; }
+	Weapons& GetPlayerWeapon() { return player_weapons[0]; } //Test
+	Armour& GetPlayerArmour() { return player_armour[0]; } //Test
 	//Set
 	void SetPlayerHealth(int p_health) { player_health += p_health; }
 private:
