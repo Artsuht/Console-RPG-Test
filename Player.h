@@ -40,19 +40,6 @@ private:
 		KEY_D = 0x44,
 	};
 
-	enum DIRECTIONS 
-	{
-		LEFT = -1, UP = -1,
-		RIGHT = 1, DOWN = 1
-	};
-
-	int selection_state = MOVEMENT;
-	enum SELECTION_STATE
-	{
-		MENU_SELECT,
-		MOVEMENT
-	};
-
 	//Player Stats
 	int player_health = 100;
 	int strength = 1;

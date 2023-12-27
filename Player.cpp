@@ -2,7 +2,7 @@
 
 void Player::MovePlayer(Map& map) 
 {
-	if (GetAsyncKeyState(KEY_W) && EmptyTile(map, player_x, player_y + UP)) //UP
+	if (GetAsyncKeyState(KEY_W) && EmptyTile(map, player_x, player_y + - 1)) //UP
 	{
 		--player_y;
 		UpdatePosition(map, player_x, player_y + 1); 
