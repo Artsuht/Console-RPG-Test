@@ -31,11 +31,11 @@ void BaseEntities::MoveEntity(Map& map, Player& player) //Maybe I have way too m
 			TriggerChase(entity_duplicates[i], map, player);
 
 			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map.GetEmptyTile());
-			entity_duplicates[i].RandEntityXY(2, 29);
+			entity_duplicates[i].RandEntityXY(map.GetMapMinimum(), map.GetMapMinimum());
 
 			while (!EmptyTile(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, map))
 			{
-				entity_duplicates[i].RandEntityXY(2, 29);
+				entity_duplicates[i].RandEntityXY(map.GetMapMinimum(), map.GetMapMaximum());
 			}
 			map.UpdateMap(entity_duplicates[i].entity_x, entity_duplicates[i].entity_y, entity_duplicates[i].entity_body);
 		}
