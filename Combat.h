@@ -92,7 +92,7 @@ static int CalcDamage(Armour& armour, Weapons& weapons)
 	return armour.GetDurability() - weapons.GetDamage();  //TO-DO Value of durability stays same, need to decrease for weapon and armour.
 }
 
-void Fight(Player& player, BaseEntities& entity)
+static void Fight(Player& player, BaseEntities& entity)
 {
 	int prev_health = 0;
 
